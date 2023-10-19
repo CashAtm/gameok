@@ -41,6 +41,7 @@
      <Compile Include="Assets\Hero Knight - Pixel Art\Demo\Sensor_HeroKnight.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Hero Knight - Pixel Art\ColorSwap\ColorSwap_HeroKnight.cs" />
+     <Compile Include="Assets\Scripts\Stats.cs" />
      <None Include="Assets\Cave Platformer Tileset\readme.txt" />
      <None Include="Assets\Warrior free set\License.txt" />
      <None Include="Assets\Warrior free set\Contact.txt" />
