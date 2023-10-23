@@ -16,11 +16,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        /*rb.velocity = new Vector2(dirX * 7f, rb.velocity.y);
+        /*
 
-         if (Input.GetButtonDown("Jump"))
-        {
-            rb.velocity = new Vector3(rb.velocity.x, 5f);
-        }*/
+         */
     }
 }
