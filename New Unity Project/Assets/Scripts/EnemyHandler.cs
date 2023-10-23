@@ -12,7 +12,7 @@ public class EnemyHandler : MonoBehaviour
         test = (Stats)ScriptableObject.CreateInstance(typeof(Stats));
     }
 
-    void update {
+    void Update() {
         // if hit by attack, check damage stat
         // if 0 then die
         // otherwise subtract damage from health

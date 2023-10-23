@@ -36,18 +36,18 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Hero Knight - Pixel Art\Demo\DestroyEvent_HeroKnight.cs" />
-     <Compile Include="Assets\Hero Knight - Pixel Art\Demo\HeroKnight.cs" />
-     <Compile Include="Assets\Hero Knight - Pixel Art\Demo\Sensor_HeroKnight.cs" />
+     <Compile Include="Assets\art\Hero Knight - Pixel Art\Demo\DestroyEvent_HeroKnight.cs" />
+     <Compile Include="Assets\art\Hero Knight - Pixel Art\Demo\HeroKnight.cs" />
+     <Compile Include="Assets\art\Hero Knight - Pixel Art\Demo\Sensor_HeroKnight.cs" />
      <Compile Include="Assets\Scripts\Stats.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
-     <Compile Include="Assets\Hero Knight - Pixel Art\ColorSwap\ColorSwap_HeroKnight.cs" />
-     <Compile Include="Assets\Scripts\EnemyHandler.cs" />
      <Compile Include="Assets\Scripts\PlayerHandler.cs" />
-     <None Include="Assets\Cave Platformer Tileset\readme.txt" />
-     <None Include="Assets\Warrior free set\License.txt" />
-     <None Include="Assets\Warrior free set\Contact.txt" />
-     <None Include="Assets\Hero Knight - Pixel Art\ColorSwap\Sprites-ColorSwap.shader" />
+     <Compile Include="Assets\Scripts\EnemyHandler.cs" />
+     <Compile Include="Assets\art\Hero Knight - Pixel Art\ColorSwap\ColorSwap_HeroKnight.cs" />
+     <None Include="Assets\art\Cave Platformer Tileset\readme.txt" />
+     <None Include="Assets\art\Warrior free set\License.txt" />
+     <None Include="Assets\art\Warrior free set\Contact.txt" />
+     <None Include="Assets\art\Hero Knight - Pixel Art\ColorSwap\Sprites-ColorSwap.shader" />
     <Reference Include="UnityEngine">
         <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.9f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
