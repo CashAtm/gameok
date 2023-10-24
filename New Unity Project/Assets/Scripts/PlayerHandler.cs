@@ -7,8 +7,7 @@ public class PlayerHandler : MonoBehaviour
     private Rigidbody2D rb;
     public Stats pStat;
     
-    [Header("Horizontal Movement Settings")]
-    [SerializeField]private float walkSpeed = 1;
+    private float walkSpeed;
     private float xAxis;
     
     [Header("Ground Check Settings")]
@@ -17,13 +16,27 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField]private float groundCheckY = 0.2f;
     [SerializeField]private float groundCheckX = 0.5f;
     [SerializeField]private LayerMask whatIsGround;
+
+    public static PlayerHandler Instance;
+
+    private void Awake()
+    {
+        if(Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
     
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         pStat = (Stats)ScriptableObject.CreateInstance(typeof(Stats));
-
+        walkSpeed = pStat.speed;
     }
 
     // Update is called once per frame
@@ -32,6 +45,7 @@ public class PlayerHandler : MonoBehaviour
         GetInputs();
         Move();
         Jump();
+        Flip();
     }
 
     void GetInputs()
@@ -46,11 +60,12 @@ public class PlayerHandler : MonoBehaviour
 
     private void Jump()
     {
+        /*
         if (Input.GetButtonDown("Jump") && rb.velocity.y > 0)
         {
             rb.velocity = new Vector2(rb.velocity.x, 0);
         }
-        
+        */
         if (Input.GetButtonDown("Jump") && Grounded())
         {
             rb.velocity = new Vector3(rb.velocity.x, jumpForce);
@@ -68,9 +83,17 @@ public class PlayerHandler : MonoBehaviour
             return false;
         }
     }
-
-    private void CheckStats()
+    void Flip()
     {
-        walkSpeed = pStat.GetSpeed();
+        if(xAxis < 0)
+        {
+            transform.localScale = new Vector2(-1, transform.localScale.y);
+            
+        }
+        else if(xAxis > 0)
+        {
+            transform.localScale = new Vector2(1, transform.localScale.y);
+
+        }
     }
 }

@@ -134,8 +134,9 @@ GameObject:
   - component: {fileID: 461115405}
   - component: {fileID: 461115407}
   - component: {fileID: 461115406}
+  - component: {fileID: 461115408}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -206,6 +207,20 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &461115408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461115404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de08e75a6292f484aaf5d6beaf3b033e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followSpeed: 5
+  offset: {x: 0, y: 0, z: -5}
 --- !u!1 &616658764
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,7 +745,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1472627270}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 616658765}
@@ -776,7 +791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pStat: {fileID: 11400000, guid: f6f24c625f0e403429a0af1c684f2dc7, type: 2}
-  walkSpeed: 3
+  walkSpeed: 5
   jumpForce: 30
   groundCheckPoint: {fileID: 616658765}
   groundCheckY: 0

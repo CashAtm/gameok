@@ -5,19 +5,19 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Character Stats", menuName = "Stats")]
 public class Stats : ScriptableObject
 {
-   public int health;
-   public int attack;
-   public int speed;
+   public float health;
+   public float attack;
+   public float speed = 1;
 
-   public int GetHealth()
+   public float GetHealth()
    {
       return health;
    }
-   public int GetAttack()
+   public float GetAttack()
    {
       return attack;
    }
-   public int GetSpeed()
+   public float GetSpeed()
    {
       return speed;
    }
