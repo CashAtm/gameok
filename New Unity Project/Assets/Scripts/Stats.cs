@@ -7,7 +7,7 @@ public class Stats : ScriptableObject
 {
    public float health;
    public float attack;
-   public float speed = 1;
+   public float speed;
 
    public float GetHealth()
    {

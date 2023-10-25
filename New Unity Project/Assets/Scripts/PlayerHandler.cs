@@ -7,7 +7,7 @@ public class PlayerHandler : MonoBehaviour
     private Rigidbody2D rb;
     public Stats pStat;
     
-    private float walkSpeed;
+    [SerializeField]private float walkSpeed;
     private float xAxis;
     
     [Header("Ground Check Settings")]
@@ -36,7 +36,6 @@ public class PlayerHandler : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         pStat = (Stats)ScriptableObject.CreateInstance(typeof(Stats));
-        walkSpeed = pStat.speed;
     }
 
     // Update is called once per frame
