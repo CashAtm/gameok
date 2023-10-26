@@ -4,17 +4,35 @@ using UnityEngine;
 
 public class EnemyHandler : MonoBehaviour
 {
-    public Stats test;
-    
+    public Stats enemyStats;
+    public float health;
+    public float attack;
+    public float speed;
+
     // Start is called before the first frame update
     void Start()
     {
-        test = (Stats)ScriptableObject.CreateInstance(typeof(Stats));
+        updateStats();
     }
 
-    void Update() {
-        // if hit by attack, check damage stat
-        // if 0 then die
-        // otherwise subtract damage from health
+    void Update() 
+    {
+        updateStats();
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+    
+    public void EnemyHit(float damageDone)
+    {
+        health -= damageDone;
+    }
+
+    void updateStats()
+    {
+        health = enemyStats.health;
+        attack = enemyStats.attack;
+        speed = enemyStats.speed;
     }
 }

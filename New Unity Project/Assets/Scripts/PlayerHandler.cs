@@ -7,8 +7,7 @@ public class PlayerHandler : MonoBehaviour
     private Rigidbody2D rb;
     public Stats pStat;
     
-    [SerializeField]private float walkSpeed;
-    private float xAxis;
+    private float xAxis, yAxis;
     
     [Header("Ground Check Settings")]
     [SerializeField]private float jumpForce;
@@ -16,6 +15,22 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField]private float groundCheckY = 0.2f;
     [SerializeField]private float groundCheckX = 0.5f;
     [SerializeField]private LayerMask whatIsGround;
+
+    [Header("Attacking")]
+    bool attack;
+    float timeBetweenAttack, timeSinceAttack;
+    [SerializeField] Transform SideAttackTransform;
+    [SerializeField] Transform UpAttackTransform;
+    [SerializeField] Transform DownAttackTransform;
+    [SerializeField] Vector2 SideAttackArea;
+    [SerializeField] Vector2 UpAttackArea;
+    [SerializeField] Vector2 DownAttackArea;
+    [SerializeField] LayerMask attackableLayer;
+
+    [Header("Stats")]
+    float health;
+    float attackStat;
+    float speed;
 
     public static PlayerHandler Instance;
 
@@ -35,7 +50,8 @@ public class PlayerHandler : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        pStat = (Stats)ScriptableObject.CreateInstance(typeof(Stats));
+        updateStats();
+        
     }
 
     // Update is called once per frame
@@ -45,16 +61,26 @@ public class PlayerHandler : MonoBehaviour
         Move();
         Jump();
         Flip();
+        Attack();
+        updateStats();
     }
 
     void GetInputs()
     {
         xAxis = Input.GetAxisRaw("Horizontal");
+        yAxis = Input.GetAxisRaw("Vertical");
+        attack = Input.GetMouseButtonDown(0);
     }
 
+    void updateStats()
+    {
+        health = pStat.health;
+        attackStat = pStat.attack;
+        speed = pStat.speed;
+    }
     private void Move()
     {
-        rb.velocity = new Vector2(walkSpeed * xAxis, rb.velocity.y);
+        rb.velocity = new Vector2(speed * xAxis, rb.velocity.y);
     }
 
     private void Jump()
@@ -93,6 +119,52 @@ public class PlayerHandler : MonoBehaviour
         {
             transform.localScale = new Vector2(1, transform.localScale.y);
 
+        }
+    }
+
+    void Attack()
+    {
+        timeSinceAttack += Time.deltaTime;
+        if(attack && timeSinceAttack >= timeBetweenAttack)
+        {
+            timeSinceAttack = 0;
+            
+            if(yAxis == 0 || yAxis < 0 && Grounded())
+            {
+                Hit(SideAttackTransform, SideAttackArea);
+            }
+            else if(yAxis > 0)
+            {
+                Hit(UpAttackTransform, UpAttackArea);
+            }
+            else if(yAxis < 0 && !Grounded())
+            {
+                Hit(DownAttackTransform, DownAttackArea);
+            }
+        }
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(SideAttackTransform.position, SideAttackArea);
+        Gizmos.DrawWireCube(UpAttackTransform.position, UpAttackArea);
+        Gizmos.DrawWireCube(DownAttackTransform.position, DownAttackArea);
+    }
+    
+    private void Hit(Transform _attackTransform, Vector2 _attackArea)
+    {
+        Collider2D[] objectsToHit = Physics2D.OverlapBoxAll(_attackTransform.position, _attackArea, 0, attackableLayer);
+
+        if(objectsToHit.Length > 0)
+        {
+            Debug.Log("hit");
+        }
+        for(int i = 0; i < objectsToHit.Length; i++)
+        {
+            if(objectsToHit[i].GetComponent<EnemyHandler>() != null)
+            {
+                objectsToHit[i].GetComponent<EnemyHandler>().EnemyHit(pStat.attack);
+            }
         }
     }
 }
