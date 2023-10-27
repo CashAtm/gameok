@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class PlayerHandler : MonoBehaviour
 {
+    PlayerStateList pState;
     private Rigidbody2D rb;
     public Stats pStat;
     
     private float xAxis, yAxis;
+    public static PlayerHandler Instance;
+    float health;
+    float attackStat;
+    float speed;
     
     [Header("Ground Check Settings")]
     [SerializeField]private float jumpForce;
@@ -16,7 +21,7 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField]private float groundCheckX = 0.5f;
     [SerializeField]private LayerMask whatIsGround;
 
-    [Header("Attacking")]
+    [Header("Attack Settings")]
     bool attack;
     float timeBetweenAttack, timeSinceAttack;
     [SerializeField] Transform SideAttackTransform;
@@ -27,13 +32,13 @@ public class PlayerHandler : MonoBehaviour
     [SerializeField] Vector2 DownAttackArea;
     [SerializeField] LayerMask attackableLayer;
 
-    [Header("Stats")]
-    float health;
-    float attackStat;
-    float speed;
-
-    public static PlayerHandler Instance;
-
+    [Header("Recoil")]
+    [SerializeField] int recoilXSteps = 5;
+    [SerializeField] int recoilYSteps = 5;
+    [SerializeField] float recoilXSpeed = 100;
+    [SerializeField] float recoilYSpeed = 100;
+    
+    
     private void Awake()
     {
         if(Instance != null && Instance != this)
@@ -62,7 +67,7 @@ public class PlayerHandler : MonoBehaviour
         Jump();
         Flip();
         Attack();
-        updateStats();
+        Die();
     }
 
     void GetInputs()
@@ -78,6 +83,14 @@ public class PlayerHandler : MonoBehaviour
         attackStat = pStat.attack;
         speed = pStat.speed;
     }
+    void Die()
+    {
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void Move()
     {
         rb.velocity = new Vector2(speed * xAxis, rb.velocity.y);
@@ -143,6 +156,14 @@ public class PlayerHandler : MonoBehaviour
             }
         }
     }
+
+    void Recoil()
+    {
+        if(pState.recoilingX)
+        {
+            
+        }
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -163,7 +184,7 @@ public class PlayerHandler : MonoBehaviour
         {
             if(objectsToHit[i].GetComponent<EnemyHandler>() != null)
             {
-                objectsToHit[i].GetComponent<EnemyHandler>().EnemyHit(pStat.attack);
+                objectsToHit[i].GetComponent<EnemyHandler>().EnemyHit(attackStat, (transform.position - objectsToHit[i].transform.position).normalized, 100);
             }
         }
     }

@@ -36,6 +36,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\CameraFollow.cs" />
      <Compile Include="Assets\art\Hero Knight - Pixel Art\Demo\DestroyEvent_HeroKnight.cs" />
      <Compile Include="Assets\art\Hero Knight - Pixel Art\Demo\HeroKnight.cs" />
      <Compile Include="Assets\art\Hero Knight - Pixel Art\Demo\Sensor_HeroKnight.cs" />
@@ -44,7 +45,7 @@
      <Compile Include="Assets\Scripts\PlayerHandler.cs" />
      <Compile Include="Assets\Scripts\EnemyHandler.cs" />
      <Compile Include="Assets\art\Hero Knight - Pixel Art\ColorSwap\ColorSwap_HeroKnight.cs" />
-     <Compile Include="Assets\Scripts\CameraFollow.cs" />
+     <Compile Include="Assets\Scripts\PlayerStateList.cs" />
      <None Include="Assets\art\Cave Platformer Tileset\readme.txt" />
      <None Include="Assets\art\Warrior free set\License.txt" />
      <None Include="Assets\art\Warrior free set\Contact.txt" />
