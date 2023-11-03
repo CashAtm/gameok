@@ -1380,8 +1380,8 @@ MonoBehaviour:
   health: 0
   attack: 0
   speed: 0
-  recoilLength: 2
-  recoilFactor: 5
+  recoilLength: 3
+  recoilFactor: 7.5
   isRecoiling: 0
   player: {fileID: 0}
 --- !u!1 &1582228505
