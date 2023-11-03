@@ -4,32 +4,35 @@ using UnityEngine;
 
 public class EnemyHandler : MonoBehaviour
 {
-    Rigidbody2D rb;
+    protected Rigidbody2D rb;
     
     [Header("Stats")]
     public Stats enemyStats;
-    float health;
-    float attack;
-    float speed;
+    public float health;
+    public float attack;
+    public float speed;
 
     [Header("Recoil")]
-    [SerializeField]float recoilLength;
-    [SerializeField]float recoilFactor;
-    [SerializeField]float recoilTimer;
-    [SerializeField]bool isRecoiling;
+    [SerializeField]protected float recoilLength;
+    [SerializeField]protected float recoilFactor;
+    protected float recoilTimer;
+    [SerializeField]protected bool isRecoiling;
 
-    void Awake()
+    [SerializeField]protected PlayerHandler player;
+
+    protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        player = PlayerHandler.Instance;
     }
     
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         updateStats();
     }
 
-    void Update() 
+    public virtual void Update() 
     {
         Die();
         recoil();
@@ -42,7 +45,7 @@ public class EnemyHandler : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void EnemyHit(float damageDone, Vector2 hitDirection, float hitForce)
+    public virtual void EnemyHit(float damageDone, Vector2 hitDirection, float hitForce)
     {
         health -= damageDone;
         if(!isRecoiling)
