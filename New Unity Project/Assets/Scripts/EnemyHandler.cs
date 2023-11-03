@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyHandler : MonoBehaviour
 {
     protected Rigidbody2D rb;
+    private float xAxis, yAxis;
     
     [Header("Stats")]
     public Stats enemyStats;
