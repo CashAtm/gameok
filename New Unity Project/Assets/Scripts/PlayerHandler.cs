@@ -188,4 +188,13 @@ public class PlayerHandler : MonoBehaviour
             }
         }
     }
+    void ClampHealth()
+    {
+        health = Mathf.Clamp(health, 0 , pStat.health);
+    }
+
+    public void TakeDamage (float damage)
+    {
+        health -= Mathf.RoundToInt(damage);
+    }
 }

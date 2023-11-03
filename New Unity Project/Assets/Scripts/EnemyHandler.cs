@@ -10,7 +10,7 @@ public class EnemyHandler : MonoBehaviour
     [Header("Stats")]
     public Stats enemyStats;
     public float health;
-    public float attack;
+    public float attackStat;
     public float speed;
 
     [Header("Recoil")]
@@ -73,7 +73,20 @@ public class EnemyHandler : MonoBehaviour
     void updateStats()
     {
         health = enemyStats.health;
-        attack = enemyStats.attack;
+        attackStat = enemyStats.attack;
         speed = enemyStats.speed;
+    }
+    protected virtual void Attack()
+    {
+        PlayerHandler.Instance.TakeDamage(attackStat);
+
+    }
+
+    protected void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Player") && !PlayerHandler.Instance.pState.invicible) 
+        {
+            Attack();
+        }
     }
 }
