@@ -1,10 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHandler : MonoBehaviour
 {
-    PlayerStateList pState;
+    [HideInInspector] public PlayerStateList pState;
     private Rigidbody2D rb;
     public Stats pStat;
     
@@ -49,13 +49,14 @@ public class PlayerHandler : MonoBehaviour
         {
             Instance = this;
         }
+        updateStats();
+
     }
     
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        updateStats();
         
     }
 
@@ -196,5 +197,13 @@ public class PlayerHandler : MonoBehaviour
     public void TakeDamage (float damage)
     {
         health -= Mathf.RoundToInt(damage);
+        StartCoroutine(StopTakingDamage());
+    }
+    IEnumerator StopTakingDamage()
+    {
+        pState.invicible = true;
+        ClampHealth();
+        yield return new WaitForSeconds(1f);
+        pState.invicible = false; 
     }
 }
