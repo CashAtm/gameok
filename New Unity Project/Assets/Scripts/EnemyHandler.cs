@@ -7,6 +7,7 @@ public class EnemyHandler : MonoBehaviour
     protected Rigidbody2D rb;
     private float xAxis, yAxis;
     
+    
     [Header("Stats")]
     public Stats enemyStats;
     public float health;
@@ -82,9 +83,9 @@ public class EnemyHandler : MonoBehaviour
 
     }
 
-    protected void OnTriggerStay2D(Collider2D collision)
+    protected void OnTriggerStay2D(Collider2D _other)
     {
-        if(collision.CompareTag("Player") && !PlayerHandler.Instance.pState.invicible) 
+        if(_other.CompareTag("Player") && !PlayerHandler.Instance.pState.invicible) 
         {
             Attack();
         }

@@ -7,6 +7,7 @@ public class PlayerHandler : MonoBehaviour
     [HideInInspector] public PlayerStateList pState;
     private Rigidbody2D rb;
     public Stats pStat;
+    public HealthBarScript healthBar;
     
     private float xAxis, yAxis;
     public static PlayerHandler Instance;
@@ -57,7 +58,7 @@ public class PlayerHandler : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        
+        healthBar.SetMaxHealth(pStat.health);
     }
 
     // Update is called once per frame
@@ -196,8 +197,12 @@ public class PlayerHandler : MonoBehaviour
 
     public void TakeDamage (float damage)
     {
-        health -= Mathf.RoundToInt(damage);
-        StartCoroutine(StopTakingDamage());
+        if(Input.GetKeyDown("[1]"))
+        {
+            health -= Mathf.RoundToInt(damage);
+            StartCoroutine(StopTakingDamage());
+            healthBar.SetHealth(health);
+        }
     }
     IEnumerator StopTakingDamage()
     {

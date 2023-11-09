@@ -36,23 +36,23 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\CameraFollow.cs" />
-     <Compile Include="Assets\art\Hero Knight - Pixel Art\Demo\DestroyEvent_HeroKnight.cs" />
-     <Compile Include="Assets\Scripts\PlayerStateList.cs" />
-     <Compile Include="Assets\art\Hero Knight - Pixel Art\Demo\HeroKnight.cs" />
-     <Compile Include="Assets\art\Hero Knight - Pixel Art\Demo\Sensor_HeroKnight.cs" />
-     <Compile Include="Assets\Scripts\Stats.cs" />
-     <Compile Include="Assets\Scripts\PlayerHandler.cs" />
-     <Compile Include="Assets\Scripts\EnemyHandler.cs" />
-     <Compile Include="Assets\art\Hero Knight - Pixel Art\ColorSwap\ColorSwap_HeroKnight.cs" />
      <Compile Include="Assets\Player.cs" />
      <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
      <Compile Include="Assets\Scripts\Rotator.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Billboard.cs" />
      <Compile Include="Assets\HealthBar.cs" />
+     <Compile Include="Assets\Scripts\CameraFollow.cs" />
+     <Compile Include="Assets\art\Hero Knight - Pixel Art\Demo\DestroyEvent_HeroKnight.cs" />
+     <Compile Include="Assets\Scripts\PlayerStateList.cs" />
      <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+     <Compile Include="Assets\art\Hero Knight - Pixel Art\Demo\HeroKnight.cs" />
+     <Compile Include="Assets\art\Hero Knight - Pixel Art\Demo\Sensor_HeroKnight.cs" />
+     <Compile Include="Assets\Scripts\Stats.cs" />
      <Compile Include="Assets\HealthBarScript.cs" />
+     <Compile Include="Assets\Scripts\PlayerHandler.cs" />
+     <Compile Include="Assets\Scripts\EnemyHandler.cs" />
+     <Compile Include="Assets\art\Hero Knight - Pixel Art\ColorSwap\ColorSwap_HeroKnight.cs" />
      <None Include="Assets\art\Cave Platformer Tileset\readme.txt" />
      <None Include="Assets\art\Warrior free set\License.txt" />
      <None Include="Assets\art\Warrior free set\Contact.txt" />
