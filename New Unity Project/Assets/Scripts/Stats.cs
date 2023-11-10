@@ -8,17 +8,5 @@ public class Stats : ScriptableObject
    public float health;
    public float attack;
    public float speed;
-
-   public float GetHealth()
-   {
-      return health;
-   }
-   public float GetAttack()
-   {
-      return attack;
-   }
-   public float GetSpeed()
-   {
-      return speed;
-   }
+   public float invincibilityFrames;
 }

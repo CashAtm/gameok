@@ -14,6 +14,7 @@ public class PlayerHandler : MonoBehaviour
     float health;
     float attackStat;
     float speed;
+    float iFrames;
     
     [Header("Ground Check Settings")]
     [SerializeField]private float jumpForce;
@@ -100,12 +101,12 @@ public class PlayerHandler : MonoBehaviour
 
     private void Jump()
     {
-        /*
-        if (Input.GetButtonDown("Jump") && rb.velocity.y > 0)
+        
+        if (Input.GetButtonDown("Jump") && (rb.velocity.y > 0))
         {
             rb.velocity = new Vector2(rb.velocity.x, 0);
         }
-        */
+        
         if (Input.GetButtonDown("Jump") && Grounded())
         {
             rb.velocity = new Vector3(rb.velocity.x, jumpForce);
@@ -166,13 +167,16 @@ public class PlayerHandler : MonoBehaviour
             
         }
     }
-    private void OnDrawGizmos()
+    
+    //hitbox for weapons 
+    /*private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(SideAttackTransform.position, SideAttackArea);
         Gizmos.DrawWireCube(UpAttackTransform.position, UpAttackArea);
         Gizmos.DrawWireCube(DownAttackTransform.position, DownAttackArea);
     }
+    */
     
     private void Hit(Transform _attackTransform, Vector2 _attackArea)
     {
@@ -197,18 +201,15 @@ public class PlayerHandler : MonoBehaviour
 
     public void TakeDamage (float damage)
     {
-        if(Input.GetKeyDown("[1]"))
-        {
-            health -= Mathf.RoundToInt(damage);
-            StartCoroutine(StopTakingDamage());
-            healthBar.SetHealth(health);
-        }
+        health -= Mathf.RoundToInt(damage);
+        StartCoroutine(StopTakingDamage());
+        healthBar.SetHealth(health);
     }
     IEnumerator StopTakingDamage()
     {
-        pState.invicible = true;
+        pState.invincible = true;
         ClampHealth();
-        yield return new WaitForSeconds(1f);
-        pState.invicible = false; 
+        yield return new WaitForSeconds(pStat.invincibilityFrames);
+        pState.invincible = false; 
     }
 }

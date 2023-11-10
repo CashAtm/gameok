@@ -20,7 +20,7 @@ public class EnemyHandler : MonoBehaviour
     protected float recoilTimer;
     [SerializeField]protected bool isRecoiling;
 
-    [SerializeField]protected PlayerHandler player;
+    [SerializeField]public PlayerHandler player;
 
     protected virtual void Awake()
     {
@@ -77,15 +77,17 @@ public class EnemyHandler : MonoBehaviour
         attackStat = enemyStats.attack;
         speed = enemyStats.speed;
     }
+
     protected virtual void Attack()
     {
         PlayerHandler.Instance.TakeDamage(attackStat);
 
     }
 
-    protected void OnTriggerStay2D(Collider2D _other)
+    public void OnTriggerStay2D(Collider2D _other)
     {
-        if(_other.CompareTag("Player") && !PlayerHandler.Instance.pState.invicible) 
+        //second condition doesnt work for whatever ungodly reason
+        if(_other.CompareTag("Player")/* && !PlayerHandler.Instance.pState.invincible*/) 
         {
             Attack();
         }
