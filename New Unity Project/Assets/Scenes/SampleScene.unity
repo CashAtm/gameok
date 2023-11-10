@@ -210,7 +210,7 @@ MonoBehaviour:
   recoilLength: 0
   recoilFactor: 1.5
   isRecoiling: 0
-  player: {fileID: 0}
+  player: {fileID: 1472627275}
 --- !u!212 &279837039
 SpriteRenderer:
   m_ObjectHideFlags: 0
