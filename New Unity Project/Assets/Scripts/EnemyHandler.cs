@@ -78,18 +78,5 @@ public class EnemyHandler : MonoBehaviour
         speed = enemyStats.speed;
     }
 
-    protected virtual void Attack()
-    {
-        PlayerHandler.Instance.TakeDamage(attackStat);
-
-    }
-
-    public void OnTriggerStay2D(Collider2D _other)
-    {
-        //second condition doesnt work for whatever ungodly reason
-        if(_other.CompareTag("Player")/* && !PlayerHandler.Instance.pState.invincible*/) 
-        {
-            Attack();
-        }
-    }
+    
 }

@@ -199,17 +199,5 @@ public class PlayerHandler : MonoBehaviour
         health = Mathf.Clamp(health, 0 , pStat.health);
     }
 
-    public void TakeDamage (float damage)
-    {
-        health -= Mathf.RoundToInt(damage);
-        StartCoroutine(StopTakingDamage());
-        healthBar.SetHealth(health);
-    }
-    IEnumerator StopTakingDamage()
-    {
-        pState.invincible = true;
-        ClampHealth();
-        yield return new WaitForSeconds(pStat.invincibilityFrames);
-        pState.invincible = false; 
-    }
+    
 }
