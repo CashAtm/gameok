@@ -8,6 +8,7 @@ public class PlayerHandler : MonoBehaviour
     private Rigidbody2D rb;
     public Stats pStat;
     public HealthBarScript healthBar;
+    private Animator anim;
     
     private float xAxis, yAxis;
     public static PlayerHandler Instance;
@@ -16,8 +17,16 @@ public class PlayerHandler : MonoBehaviour
     float speed;
     float iFrames;
     
-    [Header("Ground Check Settings")]
+
+    [Header("Jump Settings")]
     [SerializeField]private float jumpForce;
+    private int jumpBufferCounter = 0;
+    [SerializeField] private int jumpBufferFrames;
+    private float coyoteTimeCounter;
+    [SerializeField]private float coyoteTime;
+
+
+    [Header("Ground Check Settings")]
     [SerializeField]private Transform groundCheckPoint;
     [SerializeField]private float groundCheckY = 0.2f;
     [SerializeField]private float groundCheckX = 0.5f;
@@ -58,6 +67,7 @@ public class PlayerHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        pState = GetComponent<PlayerStateList>();
         rb = GetComponent<Rigidbody2D>();
         healthBar.SetMaxHealth(pStat.health);
     }
@@ -66,9 +76,10 @@ public class PlayerHandler : MonoBehaviour
     void Update()
     {
         GetInputs();
+        UpdateJumpVariables();
+        Flip();
         Move();
         Jump();
-        Flip();
         Attack();
         Die();
     }
@@ -102,14 +113,42 @@ public class PlayerHandler : MonoBehaviour
     private void Jump()
     {
         
-        if (Input.GetButtonDown("Jump") && (rb.velocity.y > 0))
+        if (Input.GetButtonUp("Jump") && (rb.velocity.y > 0))
         {
-            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.velocity = new Vector2(rb.velocity.x , 0);
+
+            pState.jumping = false;
+        }
+        if(!pState.jumping)
+        {
+            if (jumpBufferCounter > 0 && coyoteTimeCounter > 0)
+            {
+                rb.velocity = new Vector3(rb.velocity.x, jumpForce);
+
+                pState.jumping = true;
+            }
+        } 
+    }
+
+    void UpdateJumpVariables()
+    {
+        if(Grounded())
+        {
+            pState.jumping = false;
+            coyoteTimeCounter = coyoteTime;
+        }
+        else
+        {
+            coyoteTimeCounter -= Time.deltaTime;
         }
         
-        if (Input.GetButtonDown("Jump") && Grounded())
+        if(Input.GetButtonDown("Jump"))
         {
-            rb.velocity = new Vector3(rb.velocity.x, jumpForce);
+            jumpBufferCounter = jumpBufferFrames;
+        }
+        else
+        {
+            jumpBufferCounter--;
         }
     }
 
@@ -169,14 +208,14 @@ public class PlayerHandler : MonoBehaviour
     }
     
     //hitbox for weapons 
-    /*private void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(SideAttackTransform.position, SideAttackArea);
         Gizmos.DrawWireCube(UpAttackTransform.position, UpAttackArea);
         Gizmos.DrawWireCube(DownAttackTransform.position, DownAttackArea);
     }
-    */
+    
     
     private void Hit(Transform _attackTransform, Vector2 _attackArea)
     {
@@ -199,5 +238,18 @@ public class PlayerHandler : MonoBehaviour
         health = Mathf.Clamp(health, 0 , pStat.health);
     }
 
+    public void TakeDamage (float damage)
+    {
+        health -= Mathf.RoundToInt(damage);
+        StartCoroutine(StopTakingDamage());
+        healthBar.SetHealth(health);
+    }
+    IEnumerator StopTakingDamage()
+    {
+        pState.invincible = true;
+        ClampHealth();
+        yield return new WaitForSeconds(pStat.invincibilityFrames);
+        pState.invincible = false;
+    }
     
 }
